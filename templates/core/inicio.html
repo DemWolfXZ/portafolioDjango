@@ -1,0 +1,65 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================================
+     Sección principal — datos del perfil desde la BD
+     ===================================================================== -->
+<section class="container-fluid main-container container-home p-0 revealator-slideup revealator-once revealator-delay1">
+    <div class="color-block d-none d-lg-block"></div>
+    <div class="row home-details-container align-items-center">
+
+        <!-- =================================================================
+             Panel lateral izquierdo — SOLO desktop
+             Foto como background-image desde la BD
+             ================================================================= -->
+        <div class="col-lg-4 bg position-fixed d-none d-lg-block"
+             {% if perfil.foto %}
+             style="background-image: url('{{ perfil.foto.url }}');
+                    background-size: cover;
+                    background-position: center top;"
+             {% endif %}>
+        </div>
+
+        <!-- =================================================================
+             Bloque de contenido — nombre, descripción y botón
+             ================================================================= -->
+        <div class="col-12 col-lg-8 offset-lg-4 home-details text-left text-sm-center text-lg-left">
+            <div>
+
+                <!-- Foto circular — visible SOLO en mobile y tablet (oculta en desktop
+                     porque en desktop ya aparece en el panel lateral izquierdo) -->
+                {% if perfil.foto %}
+                <img src="{{ perfil.foto.url }}"
+                     class="img-fluid main-img-mobile d-block d-lg-none"
+                     alt="foto de perfil" />
+                {% endif %}
+
+                <!-- Nombre completo desde la BD -->
+                <h1 class="text-uppercase poppins-font">
+                    {{ perfil.nombre }} <span>{{ perfil.apellido }}</span>
+                </h1>
+
+                <!-- Profesión desde la BD -->
+                <h3 class="open-sans-font">
+                    {{ perfil.profesion }}
+                </h3>
+
+                <!-- Descripción desde la BD -->
+                <p class="open-sans-font">{{ perfil.descripcion }}</p>
+
+                <!-- Botón hacia nosotros -->
+                <a class="button" href="{% url 'nosotros' %}">
+                    <span class="button-text">Más sobre mí</span>
+                    <span class="button-icon fa fa-arrow-right"></span>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

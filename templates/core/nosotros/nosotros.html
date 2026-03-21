@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sobre mí{% endblock %}
+{% block body_class %}about{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================================
+     Título de la página
+     ===================================================================== -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>Sobre <span>mi</span></h1>
+    <span class="title-bg">sobre mi</span>
+</section>
+
+<!-- =====================================================================
+     Contenido principal
+     ===================================================================== -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+
+            <!-- =============================================================
+                 Columna izquierda — Información personal desde la BD
+                 ============================================================= -->
+            <div class="col-12 col-lg-5 col-xl-6">
+                <div class="row">
+
+                    <!-- Título de sección -->
+                    <div class="col-12">
+                        <h3 class="text-uppercase custom-title mb-0 ft-wt-600">Información personal</h3>
+                    </div>
+
+                    <!-- Columna 1: foto encima + datos básicos debajo -->
+                    <div class="col-6">
+
+                        <!-- Foto circular — encima de los datos básicos -->
+                        {% if perfil.foto %}
+                        <div class="text-center mb-3">
+                            <img src="{{ perfil.foto.url }}"
+                                 class="img-fluid rounded-circle"
+                                 style="width: 120px;
+                                        height: 120px;
+                                        object-fit: cover;
+                                        border: 3px solid #ffb400;
+                                        box-shadow: 0 0 15px rgba(255, 180, 0, 0.3);"
+                                 alt="foto de perfil" />
+                        </div>
+                        {% endif %}
+
+                        <!-- Datos básicos desde la BD -->
+                        <ul class="about-list list-unstyled open-sans-font">
+                            <li>
+                                <span class="title">Nombre :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{ perfil.nombre }}</span>
+                            </li>
+                            <li>
+                                <span class="title">Apellido :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{ perfil.apellido }}</span>
+                            </li>
+                            <li>
+                                <span class="title">Edad :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{ perfil.edad }} años</span>
+                            </li>
+                            <li>
+                                <span class="title">Nacionalidad :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{ perfil.nacionalidad }}</span>
+                            </li>
+                            <li>
+                                <span class="title">Freelance :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">
+                                    {% if perfil.freelance %}Available{% else %}Not Available{% endif %}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna 2: datos de contacto desde la BD -->
+                    <div class="col-6">
+                        <ul class="about-list list-unstyled open-sans-font">
+                            <li>
+                                <span class="title">Dirección :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{ perfil.direccion }}</span>
+                            </li>
+                            <li>
+                                <span class="title">Teléfono :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{ perfil.telefono }}</span>
+                            </li>
+                            <li>
+                                <span class="title">Correo :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{ perfil.correo }}</span>
+                            </li>
+                            <li>
+                                <span class="title">Idiomas :</span>
+                                <span class="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">{{ perfil.idiomas }}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Botón descarga CV -->
+                    <div class="col-12 mt-3">
+                        <a class="button" href="#">
+                            <span class="button-text">Download CV</span>
+                            <span class="button-icon fa fa-download"></span>
+                        </a>
+                    </div>
+
+                </div><!-- /.row datos personales -->
+            </div><!-- /.col info personal -->
+
+            <!-- =============================================================
+                 Columna derecha — Contadores desde la BD
+                 ============================================================= -->
+            <div class="col-12 col-lg-7 col-xl-6 mt-5 mt-lg-0">
+                <div class="row">
+
+                    <!-- Años de experiencia -->
+                    <div class="col-6">
+                        <div class="box-stats with-margin">
+                            <h3 class="poppins-font position-relative">{{ perfil.anios_experiencia }}</h3>
+                            <p class="open-sans-font m-0 position-relative text-uppercase">
+                                Años de <span class="d-block">Experiencia</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Proyectos completados -->
+                    <div class="col-6">
+                        <div class="box-stats with-margin">
+                            <h3 class="poppins-font position-relative">{{ perfil.proyectos_count }}</h3>
+                            <p class="open-sans-font m-0 position-relative text-uppercase">
+                                Proyectos <span class="d-block">completados</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Clientes satisfechos -->
+                    <div class="col-6">
+                        <div class="box-stats">
+                            <h3 class="poppins-font position-relative">{{ perfil.clientes_felices }}</h3>
+                            <p class="open-sans-font m-0 position-relative text-uppercase">
+                                Clientes <span class="d-block">satisfechos</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Premios ganados -->
+                    <div class="col-6">
+                        <div class="box-stats">
+                            <h3 class="poppins-font position-relative">{{ perfil.premios }}</h3>
+                            <p class="open-sans-font m-0 position-relative text-uppercase">
+                                Premios <span class="d-block">ganados</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div><!-- /.row contadores -->
+            </div><!-- /.col contadores -->
+
+        </div><!-- /.row principal -->
+
+        <!-- Separador -->
+        <hr class="separator">
+
+        <!-- =================================================================
+             Sección habilidades
+             ================================================================= -->
+        <div class="row">
+
+            <div class="col-12">
+                <h3 class="text-uppercase pb-4 pb-sm-5 mb-3 mb-sm-0 text-left text-sm-center custom-title ft-wt-600">
+                    My Skills
+                </h3>
+            </div>
+
+            <!-- Un círculo por cada habilidad en la BD -->
+            {% for habilidad in habilidades %}
+            <div class="col-6 col-md-3 mb-3 mb-sm-5">
+                <div class="c100 p{{ habilidad.porcentaje }}">
+                    <span>{{ habilidad.porcentaje }}%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div>
+                <h6 class="text-uppercase open-sans-font text-center mt-2 mt-sm-4">
+                    {{ habilidad.nombre_habilidad }}
+                </h6>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center text-muted">No hay habilidades registradas.</p>
+            </div>
+            {% endfor %}
+
+        </div><!-- /.row skills -->
+
+        <!-- Separador -->
+        <hr class="separator mt-1">
+
+        <!-- =================================================================
+             Sección Experiencia & Educación
+             ================================================================= -->
+        <div class="row">
+
+            <div class="col-12">
+                <h3 class="text-uppercase pb-5 mb-0 text-left text-sm-center custom-title ft-wt-600">
+                    Experience <span>&amp;</span> Education
+                </h3>
+            </div>
+
+            <!-- Experiencia laboral -->
+            <div class="col-lg-6 m-15px-tb">
+                <div class="resume-box">
+                    <ul>
+                        {% for exp in experiencia %}
+                        <li>
+                            <div class="icon">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <span class="time open-sans-font text-uppercase">{{ exp.duracion }}</span>
+                            <h5 class="poppins-font text-uppercase">
+                                {{ exp.cargo }} <span class="place open-sans-font">{{ exp.empresa }}</span>
+                            </h5>
+                            <p class="open-sans-font">{{ exp.detalles }}</p>
+                        </li>
+                        {% empty %}
+                        <li>
+                            <p class="text-muted">No hay experiencia laboral registrada.</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Educación -->
+            <div class="col-lg-6 m-15px-tb">
+                <div class="resume-box">
+                    <ul>
+                        {% for edu in educacion %}
+                        <li>
+                            <div class="icon">
+                                <i class="fa fa-graduation-cap"></i>
+                            </div>
+                            <span class="time open-sans-font text-uppercase">{{ edu.anio_graduacion }}</span>
+                            <h5 class="poppins-font text-uppercase">
+                                {{ edu.titulo }} <span class="place open-sans-font">{{ edu.institucion }}</span>
+                            </h5>
+                        </li>
+                        {% empty %}
+                        <li>
+                            <p class="text-muted">No hay educación registrada.</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        </div><!-- /.row experiencia & educación -->
+
+    </div><!-- /.container -->
+</section>
+
+{% endblock %}

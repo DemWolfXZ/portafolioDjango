@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Portafolio{% endblock %}
+{% block body_class %}portfolio{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================================
+     CSS personalizado — fixes del slideshow para esta página
+     ===================================================================== -->
+<style>
+    /* Permite scroll vertical cuando el slideshow está abierto */
+    body.cbp-spmenu-push-toleft,
+    body.cbp-spmenu-push-toright,
+    html {
+        overflow-y: auto !important;
+    }
+
+    /* Permite scroll en el contenedor del slideshow */
+    .slideshow {
+        overflow-y: auto !important;
+    }
+
+    /* Permite scroll en cada item del slideshow */
+    .slideshow > ul > li {
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+
+    /* Permite scroll en la figura del item */
+    .slideshow > ul > li > figure {
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+
+    /* Imagen responsive dentro del panel */
+    .slideshow > ul > li > figure > img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* =====================================================================
+       Fix menú lateral desktop — mantiene visible el header cuando
+       el slideshow está abierto (el JS agrega hide-header al abrir)
+       Solo aplica en desktop donde existe el menú lateral fijo
+       ===================================================================== */
+    @media (min-width: 992px) {
+        .header.hide-header {
+            z-index: 2000 !important;
+            opacity: 1 !important;
+        }
+    }
+</style>
+
+<!-- =====================================================================
+     Título de la página
+     ===================================================================== -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>mis <span>proyectos</span></h1>
+    <span class="title-bg">works</span>
+</section>
+
+<!-- =====================================================================
+     Contenido principal — galería de proyectos
+     ===================================================================== -->
+<section class="main-content text-center revealator-slideup revealator-once revealator-delay1">
+    <div id="grid-gallery" class="container grid-gallery">
+
+        <!-- =================================================================
+             Grid de miniaturas — una por cada proyecto en la BD
+             El JS sincroniza cada <li> aquí con su <li> del slideshow
+             por índice, por eso ambos loops deben tener el mismo orden
+             ================================================================= -->
+        <section class="grid-wrap">
+            <ul class="row grid">
+
+                <!-- ─── INICIO FOR: miniatura por cada proyecto ─── -->
+                {% for proyecto in proyectos %}
+                <li>
+                    <figure>
+                        <!-- Imagen miniatura desde la BD o placeholder si no hay -->
+                        {% if proyecto.imagen %}
+                            <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}" />
+                        {% else %}
+                            <img src="http://via.placeholder.com/895x552.jpg" alt="{{ proyecto.titulo }}" />
+                        {% endif %}
+                        <!-- Título del proyecto sobre la miniatura al hacer hover -->
+                        <div><span>{{ proyecto.titulo }}</span></div>
+                    </figure>
+                </li>
+                {% empty %}
+                <!-- Mensaje si no hay proyectos registrados en la BD -->
+                <li class="col-12">
+                    <p class="text-muted text-center">No hay proyectos registrados.</p>
+                </li>
+                {% endfor %}
+                <!-- ─── FIN FOR miniaturas ─── -->
+
+            </ul>
+        </section>
+        <!-- Grid de miniaturas Ends -->
+
+        <!-- =================================================================
+             Slideshow de detalles — mismo orden que el grid de miniaturas
+             Cada <li> corresponde al proyecto del mismo índice en el grid
+             ================================================================= -->
+        <section class="slideshow">
+            <ul>
+
+                <!-- ─── INICIO FOR: detalle por cada proyecto ─── -->
+                {% for proyecto in proyectos %}
+                <li>
+                    <figure>
+
+                        <!-- Detalles del proyecto en el panel -->
+                        <figcaption>
+
+                            <!-- Título del proyecto -->
+                            <h3>{{ proyecto.titulo }}</h3>
+
+                            <div class="row open-sans-font">
+
+                                <!-- Descripción del proyecto desde la BD -->
+                                <div class="col-12 mb-2">
+                                    <i class="fa fa-file-text-o pr-2"></i>
+                                    <span class="project-label">Descripción </span>:
+                                    <span class="ft-wt-600">{{ proyecto.descripcion }}</span>
+                                </div>
+
+                                <!-- Tecnologías — solo si están cargadas en la BD -->
+                                {% if proyecto.tecnologias %}
+                                <div class="col-12 col-sm-6 mb-2">
+                                    <i class="fa fa-code pr-2"></i>
+                                    <span class="project-label">Tecnologías </span>:
+                                    <span class="ft-wt-600 uppercase">{{ proyecto.tecnologias }}</span>
+                                </div>
+                                {% endif %}
+
+                                <!-- Link demo — solo si está cargado en la BD -->
+                                {% if proyecto.url_demo %}
+                                <div class="col-12 col-sm-6 mb-2">
+                                    <i class="fa fa-external-link pr-2"></i>
+                                    <span class="project-label">Demo </span>:
+                                    <span class="ft-wt-600 uppercase">
+                                        <a href="{{ proyecto.url_demo }}" target="_blank">Ver demo</a>
+                                    </span>
+                                </div>
+                                {% endif %}
+
+                                <!-- Repositorio — solo si está cargado en la BD -->
+                                {% if proyecto.url_repo %}
+                                <div class="col-12 col-sm-6 mb-2">
+                                    <i class="fa fa-github pr-2"></i>
+                                    <span class="project-label">Repositorio </span>:
+                                    <span class="ft-wt-600 uppercase">
+                                        <a href="{{ proyecto.url_repo }}" target="_blank">Ver código</a>
+                                    </span>
+                                </div>
+                                {% endif %}
+
+                                <!-- Badge destacado — solo si el proyecto está marcado -->
+                                {% if proyecto.destacado %}
+                                <div class="col-12 col-sm-6 mb-2">
+                                    <i class="fa fa-star pr-2"></i>
+                                    <span class="project-label">Destacado </span>:
+                                    <span class="ft-wt-600 uppercase">Sí</span>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </figcaption>
+                        <!-- Fin detalles del proyecto -->
+
+                        <!-- Imagen principal del proyecto en el slideshow -->
+                        {% if proyecto.imagen %}
+                            <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}" />
+                        {% else %}
+                            <img src="http://via.placeholder.com/895x552.jpg" alt="{{ proyecto.titulo }}" />
+                        {% endif %}
+
+                    </figure>
+                </li>
+                {% endfor %}
+                <!-- ─── FIN FOR slideshow ─── -->
+
+            </ul>
+
+            <!-- Navegación del slideshow — flechas y botón cerrar -->
+            <nav>
+                <span class="icon nav-prev">
+                    <img src="{% static 'img/projects/navigation/left-arrow.png' %}" alt="anterior">
+                </span>
+                <span class="icon nav-next">
+                    <img src="{% static 'img/projects/navigation/right-arrow.png' %}" alt="siguiente">
+                </span>
+                <span class="nav-close">
+                    <img src="{% static 'img/projects/navigation/close-button.png' %}" alt="cerrar">
+                </span>
+            </nav>
+
+        </section>
+        <!-- Slideshow Ends -->
+
+    </div>
+</section>
+
+{% endblock %}

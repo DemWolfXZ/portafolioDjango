@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contacto{% endblock %}
+{% block body_class %}contact{% endblock %}
+
+{% block content %}
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>A solo un <span>click</span></h1>
+    <span class="title-bg">Contacto</span>
+</section>
+<!-- Page Title Ends -->
+
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <!-- Left Side Starts -->
+            {% for perfil in perfil %}
+            <div class="col-12 col-lg-4">
+                <h3 class="text-uppercase custom-title mb-0 ft-wt-600 pb-3">No dudes en contactarme</h3>
+                <p class="open-sans-font mb-3">Siempre estoy abierto/a a hablar sobre nuevos proyectos, ideas creativas u oportunidades para formar parte de tus visiones.</p>
+                <p class="open-sans-font custom-span-contact position-relative">
+                    <i class="fa fa-envelope-open position-absolute"></i>
+                    <span class="d-block">Escribeme</span>{{ perfil.correo }}
+                </p>
+                <p class="open-sans-font custom-span-contact position-relative">
+                    <i class="fa fa-phone-square position-absolute"></i>
+                    <span class="d-block">Lláname</span>{{ perfil.telefono }}
+                </p>
+             {% endfor %}
+
+
+            <ul class="social list-unstyled pt-1 mb-5">
+    <!-- LinkedIn -->
+    <li class="linkedin">
+        <a title="LinkedIn" href="https://www.linkedin.com/in/alejandro-villa-villavicencio/" target="_blank">
+            <i class="fa fa-linkedin"></i>
+        </a>
+    </li>
+    <!-- YouTube -->
+    <li class="youtube">
+        <a title="YouTube" href="https://www.youtube.com/@DemWolf.IAmusic" target="_blank">
+            <i class="fa fa-youtube"></i>
+        </a>
+    </li>
+    <!-- WhatsApp — abre conversación directa con mensaje predefinido -->
+     <li class="whatsapp">
+        <a title="WhatsApp" href="https://wa.me/56920913551?text=Hola,%20vi%20tu%20portafolio%20y%20me%20interesa%20contactarte" target="_blank">
+            <i class="fa fa-whatsapp"></i>
+        </a>
+    </li>
+    <!-- GitHub -->
+    <li class="github">
+        <a title="GitHub" href="https://github.com/DemWolfXZ" target="_blank">
+            <i class="fa fa-github"></i>
+        </a>
+    </li>
+</ul>
+            </div>
+            <!-- Left Side Ends -->
+
+            <!-- Contact Form Starts -->
+            <div class="col-12 col-lg-8">
+                <form class="contactform" method="post" action="{% url 'contacto' %}">
+                    {% csrf_token %}
+                    <div class="contactform">
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <input type="text" name="nombre" placeholder="TU NOMBRE" required>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <input type="email" name="correo" placeholder="TU CORREO" required>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <input type="text" name="motivo" placeholder="MOTIVO" required>
+                            </div>
+                            <div class="col-12">
+                                <textarea name="mensaje" placeholder="TU MENSAJE" required></textarea>
+                                <button type="submit" class="button">
+                                    <span class="button-text">Enviar Mensaje</span>
+                                    <span class="button-icon fa fa-send"></span>
+                                </button>
+                            </div>
+                            <div class="col-12 form-message">
+                                <span class="output_message text-center font-weight-600 text-uppercase"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Contact Form Ends -->
+        </div>
+    </div>
+</section>
+<!-- Main Content Ends -->
+{% endblock %}
