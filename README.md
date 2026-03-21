@@ -23,7 +23,7 @@ portafolio-django/
 ├── apps/
 │   └── core/
 │       ├── models.py        # Modelos: Perfil, Habilidad, Educacion, ExperienciaLaboral, Proyecto, Contacto
-│       ├── views.py         # Vistas: index, nosotros, portafolio, contacto, blog
+│       ├── views.py         # Vistas: index, nosotros, portafolio, contacto
 │       ├── urls.py          # URLs de la app
 │       └── admin.py         # Registro de modelos en el admin
 ├── config_portafolio/
@@ -38,7 +38,7 @@ portafolio-django/
 │       ├── nosotros/
 │       ├── portafolio/
 │       ├── contacto/
-│       └── blog/
+│       
 ├── media/                   # Imágenes subidas desde el admin (autogenerado)
 ├── manage.py
 └── requirements.txt
@@ -95,7 +95,6 @@ python manage.py runserver
 | http://127.0.0.1:8000/nosotros | Sobre mí — habilidades, experiencia y educación |
 | http://127.0.0.1:8000/portafolio | Proyectos |
 | http://127.0.0.1:8000/contacto | Formulario de contacto |
-| http://127.0.0.1:8000/blog | Blog |
 | http://127.0.0.1:8000/admin | Panel de administración |
 
 ---
