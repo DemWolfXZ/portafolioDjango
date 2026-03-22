@@ -3,20 +3,21 @@ __pycache__/
 *.py[cod]
 *.pyo
 
-# Entorno virtual
+# Entornos virtuales
 env/
 venv/
 .venv/
 
-# Base de datos local
-db.sqlite3
-
-# Archivos estáticos generados en producción
+# Archivos estáticos generados
 staticfiles/
 
-# Archivos media opcionalmente
+# Archivos subidos por usuarios
 media/
 
-# Archivos del sistema
+# IDEs
+.vscode/
+.idea/
+
+# Sistema operativo
 .DS_Store
 Thumbs.db
