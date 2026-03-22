@@ -23,9 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@gc=wf41xb=eb)rl18qzs(qfkk2eseuj_en-l5*5e9hiq1(4k8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# Dominios permitidos — local y PythonAnywhere
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'AlejandroVilla.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -117,6 +122,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static']
+
+# Carpeta donde collectstatic reúne todos los archivos estáticos para producción
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media archivos (uploads)
 MEDIA_URL = '/media/'
