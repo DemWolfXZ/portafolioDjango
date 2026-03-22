@@ -118,12 +118,10 @@ class Proyecto(models.Model):
 # =============================================================================
 class Contacto(models.Model):
 
-  
-
-    nombre  = models.CharField(max_length=100)
-    correo  = models.EmailField()
+    nombre_remitente  = models.CharField(max_length=100)
+    correo_remitente   = models.EmailField()
     motivo  = models.CharField(max_length=50)
     mensaje = models.TextField()
 
     def __str__(self):
-        return f"{self.nombre} — {self.motivo}"
+        return f"{self.nombre_remitente} — {self.motivo}"

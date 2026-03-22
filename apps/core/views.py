@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Perfil, Habilidad, Educacion, ExperienciaLaboral, Proyecto, Contacto
-
+from .forms import ContactoForm
 
 # =============================================================================
 # Inicio — Datos básicos del perfil para la página principal
@@ -51,17 +51,22 @@ def portafolio(request):
 # Contacto — Muestra el formulario y guarda el mensaje en la BD
 # =============================================================================
 def contacto(request):
-    perfil = Perfil.objects.all()
-    
+    # Objeto único del perfil para mostrar datos de contacto
+    perfil = Perfil.objects.first()
+
+    # Form vacío por defecto — se inicializa ANTES del if POST
+    form = ContactoForm()
+
     if request.method == 'POST':
-        Contacto.objects.create(
-            nombre  = request.POST.get('nombre'),
-            correo  = request.POST.get('correo'),
-            motivo  = request.POST.get('motivo'),
-            mensaje = request.POST.get('mensaje'),
-        )
-        return redirect('contacto')
+        # Si es POST llenamos el form con los datos enviados
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            # Guardamos el mensaje en la BD
+            form.save()
+            return redirect('contacto')
 
-    return render(request, 'core/contacto/contacto.html', {'perfil': perfil})
-
-
+    context = {
+        'perfil': perfil,
+        'form':   form,
+    }
+    return render(request, 'core/contacto/contacto.html', context)
