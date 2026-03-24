@@ -16,9 +16,9 @@ def index(request):
 
 
 # =============================================================================
-# Nosotros — Datos personales, contadores, habilidades, educación y experiencia
+# Perfil — Datos personales, contadores, habilidades, educación y experiencia
 # =============================================================================
-def nosotros(request):
+def perfil(request):
     # .first() retorna un objeto único, no un queryset
     perfil      = Perfil.objects.first()
     habilidades = Habilidad.objects.all()
